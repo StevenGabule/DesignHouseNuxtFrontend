@@ -26,11 +26,20 @@ const routes = [
     name: 'verify',
     component: page('auth/verification/verify.vue')
   },
-
   {
     path: '/verification/resend',
     name: 'verification.resend',
     component: page('auth/verification/resend.vue')
+  },
+  {
+    path: '/password/reset',
+    name: 'password.email',
+    component: page('auth/password/ResetEmail.vue')
+  },
+  {
+    path: '/password/reset/:token',
+    name: 'password.reset',
+    component: page('auth/password/PasswordReset.vue')
   },
 ];
 
