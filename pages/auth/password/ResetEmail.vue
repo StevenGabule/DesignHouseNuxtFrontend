@@ -40,6 +40,8 @@
 <script>
   export default {
     name: 'ResetEmail',
+    middleware: ['guest'],
+
     data() {
       return {
         status: '',

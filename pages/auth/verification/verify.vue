@@ -25,6 +25,7 @@
 <script>
   export default {
     name: 'verify',
+    middleware: ['guest'],
     async asyncData({ params, query, app }) {
       const q = Object.keys(query)
         .map(k => `${k}=${query[k]}`)

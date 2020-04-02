@@ -39,6 +39,8 @@
 <script>
   export default {
     name: 'resend',
+    middleware: ['guest'],
+
     data() {
       return {
         form: this.$vform({

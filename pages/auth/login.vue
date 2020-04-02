@@ -11,24 +11,21 @@
           <nuxt-link :to="{name: 'verification.resend'}">Resend Verification Email</nuxt-link>
         </alert-error>
         <div class="form-group">
-          <input
-            type="text"
-            name="email" v-model="form.email"
-            class="form-control form-control-lg font-14 fw-300 "
-            :class="{'is-invalid' : form.errors.has('email') }"
+          <base-input
+            :form="form"
+            field="email"
+            v-model="form.email"
             placeholder="Email"
-          />
-          <has-error :form="form" field="email" />
+          ></base-input>
         </div>
         <div class="form-group">
-          <input
-            type="password"
-            name="password"  v-model="form.password"
-             class="form-control form-control-lg font-14 fw-300 "
-            :class="{'is-invalid' : form.errors.has('password') }"
+          <base-input
+            :form="form"
+            field="password"
+            inputType="password"
+            v-model="form.password"
             placeholder="Password"
-          />
-          <has-error :form="form" field="password" />
+          ></base-input>
         </div>
         <div class="mt-4 mb-4 clearfix">
           <nuxt-link
@@ -36,12 +33,7 @@
             :to="{name: 'password.email'}"> Forgot password? </nuxt-link>
         </div>
         <div class="text-right">
-          <button type="submit" :disabled="form.busy" class="btn btn-primary primary-bg-color font-16 fw-500 text-uppercase">
-            <span v-if="form.busy">
-              <i  class="fas fa-spinner fa-spin"></i>
-            </span>
-            Login
-          </button>
+          <base-button :loading="form.busy">Log In</base-button>
         </div>
         <p class="font-14 fw-400 text-center mt-4">
           Don't have an account yet?
@@ -56,6 +48,7 @@
 <script>
   export default {
     name: 'login',
+    middleware: ['guest'],
     data() {
       return {
         form: this.$vform({
@@ -65,19 +58,15 @@
       };
     },
     methods: {
-      submit() {
+      submit(field, messages) {
          this.$auth.loginWith('local', {
            data: this.form
          }).then((res) => {
            console.log(res)
          }).catch((err) => {
-           this.form.errors.set(err.response.data.errors);
+           this.form.errors.set(err.response.data.errors, messages);
          });
       }
     }
   }
 </script>
-
-<style scoped>
-
-</style>
