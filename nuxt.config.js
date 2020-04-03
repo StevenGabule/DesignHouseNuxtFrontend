@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config()
 export default {
   mode: 'universal',
   /*
@@ -40,7 +40,8 @@ export default {
   */
   plugins: [
     '~plugins/vform',
-    '~components/_global'
+    '~components/_global',
+    { src: '~/plugins/gmaps', ssr: false }
   ],
   /*
   ** Nuxt.js dev-modules
@@ -55,7 +56,7 @@ export default {
     'bootstrap-vue/nuxt',
     '@nuxtjs/auth',
     '@nuxtjs/axios',
-    '@nuxtjs/dotenv',
+    '@nuxtjs/dotenv'
   ],
   auth: {
     strategies: {

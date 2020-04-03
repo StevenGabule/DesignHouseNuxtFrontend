@@ -1,8 +1,9 @@
-import Vue from 'vue';
-import Router from 'vue-router';
-Vue.use(Router);
+import Vue from 'vue'
+import Router from 'vue-router'
 
-const page = path => () => import(`~/pages/${path}`).then(m => m.default || m);
+Vue.use(Router)
+
+const page = path => () => import(`~/pages/${path}`).then(m => m.default || m)
 
 
 const routes = [
@@ -46,11 +47,56 @@ const routes = [
     name: 'user.dashboard',
     component: page('user/dashboard.vue')
   },
-];
+  {
+    path: '/upload',
+    name: 'designs.update',
+    component: page('user/designs/create.vue')
+  },
+  {
+    path: '/designs/:id/edit',
+    name: 'designs.edit',
+    component: page('user/designs/edit.vue')
+  },
+  {
+    path: '/settings',
+    component: page('user/settings/index.vue'),
+    children: [
+      {
+        path: '',
+        redirect: { name: 'settings.dashboard' }
+      },
+      {
+        path: 'dashboard',
+        name: 'settings.dashboard',
+        component: page('user/settings/dashboard.vue')
+      },
+      {
+        path: 'profile',
+        name: 'settings.profile',
+        component: page('user/settings/profile.vue')
+      },
+      {
+        path: 'designs',
+        name: 'settings.designs',
+        component: page('user/settings/designs.vue')
+      }
+    ]
+  },
+  {
+    path: '/designs',
+    name: 'designs.search',
+    component: page('designs/search.vue')
+  },
+  {
+    path: '/design/:slug',
+    name: 'designs.show',
+    component: page('designs/show.vue')
+  }
+]
 
 export function createRouter() {
   return new Router({
     routes,
     mode: 'history'
-  });
+  })
 }
